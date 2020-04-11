@@ -1,9 +1,9 @@
-const express = require('express'); // using express 
+const express = require('express');
 const socketIO = require('socket.io'); 
-const http = require('http')  
-const port = process.env.PORT||4000 // setting the port  
+const http = require('http');
+const port = process.env.PORT||4000;
 let app = express(); 
-let server = http.createServer(app) 
+let server = http.createServer(app);
 let io = socketIO(server);
 
 app.get("/", (req, res) => {
@@ -14,8 +14,7 @@ io.on('connection', (socket) => {
     console.log('New user connected'); 
 
     socket.on('createMessage', (newMessage) => { 
-        console.log('Message: '+ newMessage); 
-        socket.emit("broadcast", "Broadcast Message")
+        socket.broadcast.emit("broadcast", newMessage)
     });
 
 }); 
