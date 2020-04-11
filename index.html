@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <body>
+        <input type="text" id="input_data" />
+        <input type="button" id="input_button" value="Click To Send Message" onclick="emitDataFromBrowser()" />
+
+        <script>
+
+            var socket = null;
+
+            $(() => {
+
+                socket = io.connect("http://localhost:4000");
+
+                socket.on('broadcast', function(message){ 
+                    console.log(message); 
+                }); 
+            })
+
+            window.emitDataFromBrowser = function() {
+                socket.emit('createMessage', "Mayank"); 
+            }
+        </script>
+    </body>
+</html>
